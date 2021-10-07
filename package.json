@@ -1,0 +1,33 @@
+{
+  "name": "region-api",
+  "version": "1.0.0",
+  "description": "Indonesian regions API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmdiyul/region-api.git"
+  },
+  "keywords": [
+    "open-api",
+    "regions",
+    "wilayah",
+    "provinsi",
+    "kabupaten",
+    "kota",
+    "kecamatan",
+    "kelurahan"
+  ],
+  "author": "Muhammad Aliyul Murtadlo <muhammadaliyulm@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmdiyul/region-api/issues"
+  },
+  "homepage": "https://github.com/mmdiyul/region-api#readme",
+  "dependencies": {
+    "collect.js": "^4.29.0",
+    "express": "^4.17.1"
+  }
+}

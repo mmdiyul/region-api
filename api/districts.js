@@ -25,7 +25,7 @@ module.exports = function (app) {
     const id = req.params.id
     let data = collect(require('../regions/districts.json'))
     data = data.where('id', parseInt(id)).first()
-    res.status(200).send({
+    res.status(data ? 200 : 404).send({
       statusCode: data ? 200 : 404,
       message: data ? "OK!" : `District with id: ${id} not found!`,
       data: data ?? null

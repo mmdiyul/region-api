@@ -1,3 +1,5 @@
+const collect = require('collect.js')
+
 class Helper {
   constructor() {}
 
@@ -27,12 +29,12 @@ class Helper {
         })
       } else {
         Object.keys(query[item]).forEach(key => {
-          let operator = key == 'eq' ? '=' : (key == 'ne' ? '!=' : null)
+          let operator = key == 'eq' ? '=' : (key == 'ne' ? '!=' : (key == 'like' ? 'like' : null))
           if (operator) {
             filter.push({
               attribute: item,
               operator: operator,
-              value: this.isNumeric(query[item][key]) ? parseInt(query[item][key]) : query[item][key].toUpperCase()
+              value: this.isNumeric(query[item][key]) ? parseInt(query[item][key]) : query[item][key]
             })
           }
         })
@@ -53,10 +55,20 @@ class Helper {
   }
 
   static filterData(data, filter) {
+    let filteredData = data
     filter.map(item => {
-      data = data.where(item.attribute, item.operator, item.value)
+      if (item.operator != 'like') {
+        filteredData = data.where(item.attribute, item.operator, item.value)
+      } else {
+        filteredData = []
+        data.all().forEach(d => {
+          if (d[item.attribute].toLowerCase().includes(item.value.toLowerCase())) {
+            filteredData.push(d)
+          }
+        })
+      }
     })
-    return data
+    return collect(filteredData)
   }
 
   static pagination(data, page, limit) {
